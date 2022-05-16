@@ -380,6 +380,15 @@ io.on('connection', async function(socket) {
 		io.to(socket.id).emit("forgot_password_response", dbres.email != undefined)
 	})
 
+	socket.on("community_search_player", async function(data) {
+		console.log(data)
+		var user = await mysql_select_user_username(data)
+		if(!user) 
+			io.to(socket.id).emit("player_search_response", false, false)
+		else 
+			io.to(socket.id).emit("player_search_response", user, await mysql_select_userhistory(user.userid))
+	})
+
 	socket.on("spectate_game", function(data) {
 		var room = active_rooms.find(r => r.black_user.initial_socketid === data.initial_black_socketid && r.red_user.initial_socketid === data.initial_red_socketid)
 		if (room) {
@@ -972,7 +981,7 @@ function mysql_select_userhistory(userid) {
 			"SELECT g.gameid as id, g.started, g.game_pon as PON, u1.username as r, u2.username as b, g.redelo as re, g.blackelo as be " +
 			"FROM games g left JOIN users u1 ON u1.userid = g.userid1FK left JOIN users u2 ON u2.userid = g.userid2FK " +
 			"WHERE userid1FK = " + userid + " or userid2FK = " + userid + " " +
-			"ORDER BY gameid desc limit 20",
+			"ORDER BY gameid desc limit 57",
 			function(err, result_games) {
 				if (err) {
 					console.log(err)
@@ -1001,6 +1010,23 @@ function mysql_select_games() {
 				} else {
 					console.log("selected games")
 					resolve(result.length > 0 ? result : {})
+				}
+			}
+		)
+	})
+}
+
+function mysql_select_user_username(login) {
+	return new Promise((resolve) => {
+		dbconnection.query("SELECT userid, username, wins, losses, created, elo  FROM users WHERE ( " +
+			"username     =  " + "'" + login + "'" + " );",
+			function(err, result) {
+				if (err) {
+					console.log(err)
+					resolve(false)
+				} else {
+					console.log("searched user "+login)
+					resolve(result.length > 0 ? result[0] : false)
 				}
 			}
 		)
