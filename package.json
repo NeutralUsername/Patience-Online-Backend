@@ -9,7 +9,6 @@
   "main": "app.js",
   "keywords": [],
   "author": "Fabian Stuck / stuck.fabian@gmail.com",
-  "license": "ISC",
   "description": "",
   "dependencies": {
     "cookie": "^0.4.2",
