@@ -26,3 +26,13 @@ You can make 5 Moves each turn.
 Moves to Foundation and moves from Stock are excluded from this and free.
 
 During the first turn you can not Move cards to your opponents side.
+
+
+![image](https://user-images.githubusercontent.com/39095721/171749601-7af3e371-dcf4-47ce-be79-821fdf1561b5.png)
+
+![image](https://user-images.githubusercontent.com/39095721/171749685-f3d2214c-9f28-42a7-a5f8-b98ad7788f79.png)
+
+![image](https://user-images.githubusercontent.com/39095721/171749726-8f832463-db87-4aca-9db4-d57ec141b9fb.png)
+
+![image](https://user-images.githubusercontent.com/39095721/171749772-4985615e-a8ff-4237-a989-a327226f9762.png)
+
